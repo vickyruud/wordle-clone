@@ -7,7 +7,7 @@ const Keyboard = ({boardData, handleKeyPress}) => {
   return (
     <div className='keyboard-rows'>
       {/* map keyboard letters with conditional css */}
-      {keys.map((item, i) => (
+      {keys.map((item, index) => (
         <div className='row' key={index}>
           {
             item.map((key, keyIndex) => (

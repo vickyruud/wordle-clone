@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { wordList } from './constants/data';
-
+import './App.css'
+import Keyboard from './component/Keyboard';
 
 const App = () => {
 
@@ -81,7 +82,7 @@ const App = () => {
       handleMessage("You Won!!");
 
     } else if (rowIndex + 1 === 6) {
-      status: "LOST";
+      status = "LOST";
       handleMessage("Hard Luck! Try again!");
 
     }
@@ -105,33 +106,31 @@ const App = () => {
   const enterCurrentText = (word) => {
     let boardWords = boardData.boardWords;
     let rowIndex = boardData.rowIndex;
-    boardData[rowIndex] = word;
+    boardWords[rowIndex] = word;
     let newBoardData = { ...boardData, "boardWords": boardWords };
     setBoardData(newBoardData);
   }
 
 
 //handles key press
-  const handleKeyPress = (key) => {
-    //ignore key press if row index is greater than 5  or is user already won the game
-    if (boardData.rowIndex > 5 || boardData.status === "WIN") return;
-    //on enter key
-    if (key = "ENTER") {
-      if (charArray.length === 5) {
-        let word = charArray.join("").toLowerCase();
-        if (!wordList[word.charAt(0)].includes[word]) {
-          handleError();
-          handleMessage('Not in word list');
-          return;
+const handleKeyPress= (key)=>{
+    if(boardData.rowIndex > 5 || boardData.status === "WIN") return;
+    if(key==="ENTER"){
+        if(charArray.length===5){
+            let word = charArray.join("").toLowerCase();
+            if(!wordList[word.charAt(0)].includes(word)) {
+                handleError();
+                handleMessage("Not in word list");
+                return;
+              }
+            enterBoardWord(word);
+            setCharArray([]);
+        }else{
+            handleMessage("Not enough letters");
         }
-        enterBoardWord(word);
-        setCharArray([]);
-      } else {
-        handleMessage('Not enough letters');
-      }
-      return;
+        return;
     }
-     if(key==="⌫"){
+    if(key==="⌫"){
         charArray.splice(charArray.length-1,1);
         setCharArray([...charArray]);
     }
@@ -140,7 +139,7 @@ const App = () => {
         setCharArray([...charArray]);
     }
     enterCurrentText(charArray.join("").toLowerCase());
-  }
+}
 
   useEffect(() => {
     if (!boardData || !boardData.solution) {
@@ -172,10 +171,10 @@ const App = () => {
       {message && <div className='message'>{message}</div>}
       <div className='cube'>
         {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
-          <div className={`cube-row ${boardData && row == boardData.rowIndex && error && "error"}`}>
+          <div className={`cube-row ${boardData && row === boardData.rowIndex && error && "error"}`}>
             {
               [0, 1, 2, 3, 4].map((column, letterIndex) => (
-                <div key={letterIndex} className={`letter ${boardData && boardRowStatus[row]? boardData.boardRowStatus[row][column] : ""}`}>
+                <div key={letterIndex} className={`letter ${boardData && boardData.boardRowStatus[row]? boardData.boardRowStatus[row][column] : ""}`}>
                 {boardData && boardData.boardWords[row] && boardData.boardWords[row][column]}
                 </div> 
               ))
