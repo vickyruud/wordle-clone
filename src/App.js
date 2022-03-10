@@ -11,6 +11,34 @@ const App = () => {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(false);
 
+  const handleMessage = (message) => {
+    setMessage(message);
+    setTimeout(() => {
+      setMessage(null);
+    }, 3000)
+  }
+
+
+  //display error and clear in 3 seconds
+  const handleError = () => {
+    setError(true);
+    setTimeout(() => {
+      setError(false);
+    }, 3000)
+  }
+
+  const enterBoardWord = (word) => {
+     let boardWords=boardData.boardWords;
+    let boardRowStatus=boardData.boardRowStatus;
+    let solution=boardData.solution;
+    let presentCharArray=boardData.presentCharArray;
+    let absentCharArray=boardData.absentCharArray;
+    let correctCharArray=boardData.correctCharArray;
+    let rowIndex=boardData.rowIndex;
+    let rowStatus =[];
+    let matchCount=0;
+    let status=boardData.status;
+  }
 
 //handles key press
   const handleKeyPress = (key) => {
@@ -21,8 +49,14 @@ const App = () => {
       if (charArray.length === 5) {
         let word = charArray.join("").toLowerCase();
         if (!wordList[word.charAt(0)].includes[word]) {
-          
+          handleError();
+          handleMessage('Not in word list');
+          return;
         }
+        enterBoardWord(word);
+        setCharArray([]);
+      } else {
+        handleMessage('Not enough letters');
       }
     }
 
