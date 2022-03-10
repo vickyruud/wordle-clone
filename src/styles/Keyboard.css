@@ -35,3 +35,23 @@ button {
   background: #787c7e;
   color: #fff;
 }
+
+@media only screen and (max-width: 960px) {
+  .row {
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-left: 5px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+  }
+  button {
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #d3d6da;
+    padding: 8px 10px;
+    border: none;
+    text-transform: uppercase;
+  }
+}

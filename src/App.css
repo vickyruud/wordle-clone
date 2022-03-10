@@ -3,7 +3,7 @@
   position: relative;
   flex-direction: column;
   justify-content: space-between;
-  height: 100vh;
+  height: 75vh;
   align-items: center;
 }
 .message {
@@ -105,3 +105,5 @@
   background: #787c7e;
   color: #fff;
 }
+
+
