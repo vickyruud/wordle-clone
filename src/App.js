@@ -11,6 +11,26 @@ const App = () => {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(false);
 
+
+  //refresh the word
+  const resetBoard = () => {
+    let alphabetIndex = Math.floor(Math.random() * 26);
+      let wordIndex = Math.floor(Math.random() * wordList[String.fromCharCode(97 + alphabetIndex)].length);
+      let newBoardData = {
+        ...boardData, "solution": wordList[String.fromCharCode(97 + alphabetIndex)][wordIndex],
+        "rowIndex": 0,
+        "boardWords": [],
+        "boardRowStatus": [],
+        "presentCharArray": [],
+        "absentCharArray": [],
+        "correctCharArray": [],
+        "status": "IN_PROGRESS"
+      };
+      setBoardData(newBoardData);
+      localStorage.setItem("board-data", JSON.stringify(newBoardData));
+
+  }
+
   const handleMessage = (message) => {
     setMessage(message);
     setTimeout(() => {
@@ -27,6 +47,7 @@ const App = () => {
     }, 3000)
   }
 
+  //handles rendering and storing of each key and word
   const enterBoardWord = (word) => {
     let boardWords = boardData.boardWords;
     let boardRowStatus = boardData.boardRowStatus;
@@ -79,6 +100,16 @@ const App = () => {
     setBoardData(newBoardData);
     localStorage.setItem("board-data", JSON.stringify(newBoardData));
   }
+
+
+  const enterCurrentText = (word) => {
+    let boardWords = boardData.boardWords;
+    let rowIndex = boardData.rowIndex;
+    boardData[rowIndex] = word;
+    let newBoardData = { ...boardData, "boardWords": boardWords };
+    setBoardData(newBoardData);
+  }
+
 
 //handles key press
   const handleKeyPress = (key) => {
