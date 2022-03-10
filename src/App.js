@@ -28,16 +28,56 @@ const App = () => {
   }
 
   const enterBoardWord = (word) => {
-     let boardWords=boardData.boardWords;
-    let boardRowStatus=boardData.boardRowStatus;
+    let boardWords = boardData.boardWords;
+    let boardRowStatus = boardData.boardRowStatus;
     let solution=boardData.solution;
     let presentCharArray=boardData.presentCharArray;
     let absentCharArray=boardData.absentCharArray;
     let correctCharArray=boardData.correctCharArray;
-    let rowIndex=boardData.rowIndex;
+    let rowIndex = boardData.rowIndex;
     let rowStatus =[];
     let matchCount=0;
-    let status=boardData.status;
+    let status = boardData.status;
+
+    for (let index = 0; index < word.length; index++) {
+      if (solution.charAt(index) === word.charAt(index)) {
+        matchCount++;
+        rowStatus.push('correct');
+        if (!correctCharArray.includes(word.charAt(index))) correctCharArray.push(word.charAt(index));
+        if (presentCharArray.indexOf(word.charAt(index)) !== -1) presentCharArray.splice(presentCharArray.indexOf(word.charAt(index)), 1);
+        
+      } else if (solution.includes(word.charAt(index))) {
+        rowStatus.push('present');
+        if (!correctCharArray.includes(word.charAt(index)) 
+              && !presentCharArray.includes(word.charAt(index))) presentCharArray.push(word.charAt(index));
+      } else {
+        rowStatus.push('absent');
+        if(!absentCharArray.includes(word.charAt(index))) absentCharArray.push(word.charAt(index));
+      }
+    }
+    if (matchCount === 5) {
+      status = "WON";
+      handleMessage("You Won!!");
+
+    } else if (rowIndex + 1 === 6) {
+      status: "LOST";
+      handleMessage("Hard Luck! Try again!");
+
+    }
+    boardRowStatus.push(rowStatus);
+    boardWords[rowIndex] = word;
+    let newBoardData = {
+      ...boardData,
+      "boardWords":boardWords,
+      "boardRowStatus":boardRowStatus,
+      "rowIndex":rowIndex+1,
+      "status":status,
+      "presentCharArray":presentCharArray,
+      "absentCharArray":absentCharArray,
+      "correctCharArray":correctCharArray
+    };
+    setBoardData(newBoardData);
+    localStorage.setItem("board-data", JSON.stringify(newBoardData));
   }
 
 //handles key press
