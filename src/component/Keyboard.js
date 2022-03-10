@@ -2,9 +2,11 @@ import React from 'react'
 import { keys } from '../constants/constants'
 import '../styles/Keyboard.css'
 
+
 const Keyboard = ({boardData, handleKeyPress}) => {
   return (
     <div className='keyboard-rows'>
+      {/* map keyboard letters with conditional css */}
       {keys.map((item, i) => (
         <div className='row' key={index}>
           {

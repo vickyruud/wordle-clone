@@ -8,6 +8,26 @@ const App = () => {
   const [boardData, setBoardData] = useState(JSON.parse(localStorage.getItem('board-data')));
   //store the array of characters in state
   const [charArray, setCharArray] = useState([]);
+  const [message, setMessage] = useState(null);
+  const [error, setError] = useState(false);
+
+
+//handles key press
+  const handleKeyPress = (key) => {
+    //ignore key press if row index is greater than 5  or is user already won the game
+    if (boardData.rowIndex > 5 || boardData.status === "WIN") return;
+    //on enter key
+    if (key = "ENTER") {
+      if (charArray.length === 5) {
+        let word = charArray.join("").toLowerCase();
+        if (!wordList[word.charAt(0)].includes[word]) {
+          
+        }
+      }
+    }
+
+
+  }
 
   useEffect(() => {
     if (!boardData || !boardData.solution) {
