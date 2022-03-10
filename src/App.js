@@ -172,8 +172,21 @@ const App = () => {
       {message && <div className='message'>{message}</div>}
       <div className='cube'>
         {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
-          <div className={`cube-row ${boardData && row==boardData.rowIndex && error && "error"}`}
+          <div className={`cube-row ${boardData && row == boardData.rowIndex && error && "error"}`}>
+            {
+              [0, 1, 2, 3, 4].map((column, letterIndex) => (
+                <div key={letterIndex} className={`letter ${boardData && boardRowStatus[row]? boardData.boardRowStatus[row][column] : ""}`}>
+                {boardData && boardData.boardWords[row] && boardData.boardWords[row][column]}
+                </div> 
+              ))
+            }
+          </div>
         ))}
+      </div>
+      <div className='bottom'>
+        <Keyboard
+          boardData={boardData} 
+          handleKeyPress = {handleKeyPress}/>
       </div>
     </div>
   )
