@@ -98,9 +98,17 @@ const App = () => {
       } else {
         handleMessage('Not enough letters');
       }
+      return;
     }
-
-
+     if(key==="⌫"){
+        charArray.splice(charArray.length-1,1);
+        setCharArray([...charArray]);
+    }
+    else if(charArray.length<5){
+        charArray.push(key);
+        setCharArray([...charArray]);
+    }
+    enterCurrentText(charArray.join("").toLowerCase());
   }
 
   useEffect(() => {
