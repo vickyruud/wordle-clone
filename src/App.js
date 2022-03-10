@@ -36,7 +36,7 @@ const App = () => {
     setMessage(message);
     setTimeout(() => {
       setMessage(null);
-    }, 3000)
+    }, 5000)
   }
 
 
@@ -82,8 +82,9 @@ const App = () => {
       handleMessage("You Won!!");
 
     } else if (rowIndex + 1 === 6) {
+      let answer = boardData.solution;
       status = "LOST";
-      handleMessage("Hard Luck! Try again!");
+      handleMessage(`Hard Luck! Try again! The word was ${answer.toUpperCase()}`);
 
     }
     boardRowStatus.push(rowStatus);
