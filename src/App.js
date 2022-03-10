@@ -164,8 +164,17 @@ const App = () => {
 
 
   return (
-    <div>
-
+    <div className='container'>
+      <div className='top'>
+        <div className='title'>WORDLE CLONE</div>
+        <button className='reset-board' onClick={resetBoard}>{"\u27f3"}</button>
+      </div>
+      {message && <div className='message'>{message}</div>}
+      <div className='cube'>
+        {[0, 1, 2, 3, 4, 5].map((row, rowIndex) => (
+          <div className={`cube-row ${boardData && row==boardData.rowIndex && error && "error"}`}
+        ))}
+      </div>
     </div>
   )
 }
